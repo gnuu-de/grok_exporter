@@ -57,4 +57,4 @@ COPY --from=builder /go/src/github.com/fstab/grok_exporter/example \
      /app/example
 
 EXPOSE 9144
-ENTRYPOINT [ "/app/grok_exporter --config $GROKCONF" ]
+ENTRYPOINT /app/grok_exporter --config ${GROKCONF}
