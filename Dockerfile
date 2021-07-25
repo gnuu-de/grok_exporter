@@ -43,6 +43,9 @@ RUN cd /go/src/github.com/fstab/grok_exporter && \
 
 FROM alpine:latest
 
+RUN addgroup -g 1000 app && adduser -h /app -u 1000 -G app app
+
+USER app
 WORKDIR /app
 
 COPY --from=builder /go/src/github.com/fstab/grok_exporter/grok_exporter \
