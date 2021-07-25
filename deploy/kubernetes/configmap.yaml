@@ -20,13 +20,14 @@ data:
     - 'TIME (?!<[0-9])%{HOUR}:%{MINUTE}(?::%{SECOND})(?![0-9])'
     - 'UUCP_MESSAGE [a-zA-Z ]*'
     - 'UUCP_USER [0-9]{13}'
-    - 'UUCP_DATE %{YEAR:uucp_year}-%{MONTHNUM:uucp_month}-%{MONTHDAY:uucp_day} %{TIME:uucp_time}'
+    - 'UUCP_DATE %{YEAR:uucp_year}-%{MONTHNUM:uucp_month}-%{MONTHDAY:uucp_day} %{TIME:uucp_time} '
     metrics:
     - type: counter
       name: gnuu_uucp_logins
       help: Total number of UUCP Logins
       match: 'uucico - - (%{UUCP_DATE}) Incoming call (login %{UUCP_USER} port stdin)'
       labels:
+        error_message: '%{UUCP_DATE}'
         logfile: '{{base .logfile}}'
     server:
       protocol: http
