@@ -9,7 +9,7 @@ data:
       readall: true # Read from the beginning of the file? False means we start at the end of the file and read only new lines.
     imports:
     - type: grok_patterns
-      dir: /config/patterns
+      dir: /patterns
     grok_patterns:
     - 'UUCP_MESSAGE [a-zA-Z ]*'
     metrics:
@@ -37,4 +37,4 @@ kind: ConfigMap
 metadata:
   labels:
     app: groklog
-  name: grokpattern
+  name: grokpatterns
