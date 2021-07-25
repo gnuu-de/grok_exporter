@@ -52,7 +52,7 @@ ENV GROKCONF=/app/example/config.yml
 COPY --from=builder /go/src/github.com/fstab/grok_exporter/grok_exporter \
      /app/grok_exporter
 COPY --from=builder /go/src/github.com/fstab/grok_exporter/logstash-patterns-core \
-
+     /app/logstash-patterns-core 
 COPY --from=builder /go/src/github.com/fstab/grok_exporter/example \
      /app/example
 
