@@ -1,0 +1,12 @@
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: groklog
+spec:
+  selector:
+    app: groklog
+  ports:
+    - port: 9144
+      targetPort: 9144
+

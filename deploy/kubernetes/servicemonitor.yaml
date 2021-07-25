@@ -1,0 +1,15 @@
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  labels:
+    app: groklog
+  name: groklog
+spec:
+  endpoints:
+    - port: http
+      interval: 10s
+      path: /metrics
+  selector:
+    matchLabels:
+      app: groklog
