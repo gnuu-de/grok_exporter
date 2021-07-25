@@ -7,11 +7,13 @@ data:
       type: file
       path: /data/spool/uucp/Log
       readall: true # Read from the beginning of the file? False means we start at the end of the file and read only new lines.
-    imports:
-    - type: grok_patterns
-      dir: /patterns
+#    imports:
+#    - type: grok_patterns
+#      dir: /patterns
     grok_patterns:
     - 'UUCP_MESSAGE [a-zA-Z ]*'
+    - 'UUCP_USER [0-9]{13}'
+    - 'UUCP_DATE %{YEAR:uucp_year}-%{MONTHNUM:uucp_month}-%{MONTHDAY:uucp_day} %{TIME:uucp_time}'
     metrics:
     - type: counter
       name: gnuu_uucp_logins
