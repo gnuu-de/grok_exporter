@@ -1,8 +1,8 @@
-# on: 
-#   push: 
-#     paths: 
-#     - 'Dockerfile'
 name: Build & Push Dockerfile
+on: 
+  push: 
+    branches:
+      - 'master'
 jobs:
   deploy:
     name: Docker Build & Push
