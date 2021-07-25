@@ -47,11 +47,14 @@ RUN addgroup -g 1000 app && adduser -h /app -u 1000 -G app app
 
 USER app
 WORKDIR /app
+ENV GROKCONF=/app/example/config.yml
 
 COPY --from=builder /go/src/github.com/fstab/grok_exporter/grok_exporter \
      /app/grok_exporter
 COPY --from=builder /go/src/github.com/fstab/grok_exporter/logstash-patterns-core \
-     /app/logstash-patterns-core
+
+COPY --from=builder /go/src/github.com/fstab/grok_exporter/example \
+     /app/example
 
 EXPOSE 9144
-ENTRYPOINT [ "/app/grok_exporter" ]
+ENTRYPOINT [ "/app/grok_exporter --config $GROKCONF" ]
