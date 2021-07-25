@@ -11,6 +11,11 @@ data:
     # - type: grok_patterns
     #   dir: /patterns
     grok_patterns:
+    - 'YEAR (?>\d\d){1,2}'
+    - 'HOUR (?:2[0123]|[01]?[0-9])'
+    - 'MINUTE (?:[0-5][0-9])'
+    - 'SECOND (?:(?:[0-5]?[0-9]|60)(?:[:.,][0-9]+)?)'
+    - 'TIME (?!<[0-9])%{HOUR}:%{MINUTE}(?::%{SECOND})(?![0-9])'
     - 'UUCP_MESSAGE [a-zA-Z ]*'
     - 'UUCP_USER [0-9]{13}'
     - 'UUCP_DATE %{YEAR:uucp_year}-%{MONTHNUM:uucp_month}-%{MONTHDAY:uucp_day} %{TIME:uucp_time}'
