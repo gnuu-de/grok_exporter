@@ -22,11 +22,19 @@ data:
     server:
       protocol: http
       port: 9144
-  patterns/uucp: |
+kind: ConfigMap
+metadata:
+  labels:
+    app: groklog
+  name: groklog
+---
+apiVersion: v1
+data:
+  uucp: |
     UUCP_USER [0-9]{13}
     UUCP_DATE %{YEAR:uucp_year}-%{MONTHNUM:uucp_month}-%{MONTHDAY:uucp_day} %{TIME:uucp_time}
 kind: ConfigMap
 metadata:
   labels:
     app: groklog
-  name: groklog
+  name: grokpattern
