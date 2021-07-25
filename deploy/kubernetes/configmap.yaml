@@ -1,0 +1,32 @@
+apiVersion: v1
+data:
+  config.yml: |
+    global:
+      config_version: 3
+    input:
+      type: file
+      path: /data/spool/uucp/Log
+      readall: true # Read from the beginning of the file? False means we start at the end of the file and read only new lines.
+    imports:
+    - type: grok_patterns
+      dir: /config/patterns
+    grok_patterns:
+    - 'UUCP_MESSAGE [a-zA-Z ]*'
+    metrics:
+    - type: counter
+      name: gnuu_uucp_logins
+      help: Total number of UUCP Logins
+      match: 'uucico - - (%{UUCP_DATE}) Incoming call (login %{UUCP_USER} port stdin)'
+      labels:
+        logfile: '{{base .logfile}}'
+    server:
+      protocol: http
+      port: 9144
+  patterns/uucp: |
+    UUCP_USER [0-9]{13}
+    UUCP_DATE %{YEAR:uucp_year}-%{MONTHNUM:uucp_month}-%{MONTHDAY:uucp_day} %{TIME:uucp_time}
+kind: ConfigMap
+metadata:
+  labels:
+    app: groklog
+  name: groklog
